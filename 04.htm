@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class XI & XII | Legacy</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+scroll-behavior:smooth;
+}
+
+:root{
+--navy:#0a192f;
+--light-navy:#112240;
+--gold:#d4af37;
+--slate:#8892b0;
+--light-slate:#ccd6f6;
+--neon-pink:#ff0080;
+--neon-cyan:#00ffff;
+--neon-purple:#7928ca;
+}
+
+body{
+background:var(--navy);
+color:var(--slate);
+overflow-x:hidden;
+line-height:1.6;
+transition:background 0.5s ease;
+}
+
+.edit-btn{
+position:fixed;
+top:20px;
+right:20px;
+z-index:1000;
+padding:12px 24px;
+border:1px solid var(--gold);
+border-radius:8px;
+background:transparent;
+color:var(--gold);
+cursor:pointer;
+font-size:14px;
+font-weight:500;
+transition:.3s;
+}
+
+.edit-btn:hover{
+background:rgba(212,175,55,.1);
+}
+
+/* Music Player */
+.music-player{
+position:fixed;
+bottom:25px;
+right:25px;
+z-index:1000;
+display:flex;
+align-items:center;
+gap:15px;
+background:var(--light-navy);
+padding:12px 20px;
+border-radius:50px;
+border:1px solid rgba(212,175,55,.3);
+box-shadow:0 10px 30px rgba(2,12,27,.8);
+}
+
+.music-btn{
+width:40px;
+height:40px;
+border-radius:50%;
+border:1px solid var(--gold);
+background:transparent;
+color:var(--gold);
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+transition:.3s;
+}
+
+.music-btn:hover{
+background:rgba(212,175,55,.1);
+transform:scale(1.1);
+}
+
+.music-info{
+color:var(--light-slate);
+font-size:13px;
+max-width:150px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.music-info span{
+color:var(--gold);
+font-weight:500;
+}
+
+.volume-slider{
+width:80px;
+height:4px;
+background:rgba(212,175,55,.2);
+border-radius:5px;
+outline:none;
+cursor:pointer;
+}
+
+.volume-slider::-webkit-slider-thumb{
+-webkit-appearance:none;
+width:12px;
+height:12px;
+border-radius:50%;
+background:var(--gold);
+cursor:pointer;
+}
+
+.logo-box{
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+padding-top:100px;
+padding-bottom:40px;
+}
+
+.school-logo{
+width:180px;
+height:180px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid var(--gold);
+box-shadow:0 10px 30px rgba(212,175,55,.2);
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+header{
+min-height:85vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 20px;
+}
+
+.hero{
+max-width:900px;
+animation:fadeIn 1.2s ease;
+}
+
+.hero h1{
+font-size:56px;
+font-weight:700;
+margin-bottom:20px;
+color:var(--light-slate);
+letter-spacing:-1px;
+}
+
+.hero h1 span{
+color:var(--gold);
+}
+
+.hero p{
+font-size:20px;
+line-height:1.8;
+color:var(--slate);
+font-weight:300;
+max-width:700px;
+margin:0 auto;
+}
+
+.hero button{
+margin-top:50px;
+padding:16px 45px;
+border:1px solid var(--gold);
+border-radius:8px;
+background:transparent;
+color:var(--gold);
+font-size:16px;
+font-weight:500;
+cursor:pointer;
+transition:.3s;
+}
+
+.hero button:hover{
+background:rgba(212,175,55,.1);
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(212,175,55,.2);
+}
+
+section{
+padding:100px 10%;
+max-width:1400px;
+margin:0 auto;
+}
+
+.title{
+text-align:center;
+font-size:36px;
+font-weight:600;
+margin-bottom:60px;
+color:var(--light-slate);
+position:relative;
+}
+
+.title::after{
+content:'';
+display:block;
+width:80px;
+height:2px;
+background:var(--gold);
+margin:20px auto 0;
+}
+
+.friendship{
+background:var(--light-navy);
+padding:50px;
+border-radius:12px;
+font-size:18px;
+line-height:1.9;
+color:var(--light-slate);
+border:1px solid rgba(212,175,55,.1);
+box-shadow:0 20px 50px rgba(2,12,27,.7);
+}
+
+.profiles{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:40px;
+margin-top:60px;
+}
+
+.card{
+background:var(--light-navy);
+padding:35px 30px;
+border-radius:12px;
+text-align:center;
+transition:.4s;
+opacity:0;
+transform:translateY(40px);
+border:1px solid rgba(212,175,55,.1);
+box-shadow:0 10px 30px rgba(2,12,27,.7);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:var(--gold);
+box-shadow:0 20px 40px rgba(2,12,27,.9);
+}
+
+.card img{
+width:160px;
+height:160px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid var(--gold);
+margin-bottom:25px;
+transition:.4s;
+}
+
+.card:hover img{
+transform:scale(1.05);
+}
+
+.card h2{
+margin-bottom:12px;
+font-size:22px;
+font-weight:600;
+color:var(--light-slate);
+}
+
+.card p{
+color:var(--slate);
+font-size:15px;
+margin-bottom:25px;
+line-height:1.7;
+}
+
+.view-btn{
+padding:12px 30px;
+border:1px solid var(--gold);
+border-radius:8px;
+background:transparent;
+color:var(--gold);
+font-weight:500;
+cursor:pointer;
+transition:.3s;
+font-size:15px;
+}
+
+.view-btn:hover{
+background:rgba(212,175,55,.1);
+transform:translateY(-2px);
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(10,25,47,.95);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+backdrop-filter:blur(8px);
+padding:20px;
+}
+
+.modal-content{
+background:var(--light-navy);
+padding:50px 40px;
+border-radius:12px;
+max-width:600px;
+width:100%;
+text-align:center;
+position:relative;
+animation:slideUp.4s ease;
+border:1px solid var(--gold);
+box-shadow:0 25px 60px rgba(2,12,27,.8);
+max-height:90vh;
+overflow-y:auto;
+}
+
+@keyframes slideUp{
+from{transform:translateY(50px); opacity:0;}
+to{transform:translateY(0); opacity:1;}
+}
+
+.modal-content img{
+width:150px;
+height:150px;
+border-radius:50%;
+border:3px solid var(--gold);
+margin-bottom:25px;
+}
+
+.modal-content h2{
+font-size:28px;
+margin-bottom:30px;
+color:var(--light-slate);
+font-weight:600;
+}
+
+.detail-grid{
+display:grid;
+gap:15px;
+text-align:left;
+margin-bottom:25px;
+}
+
+.detail-item{
+padding:15px 20px;
+background:rgba(10,25,47,.5);
+border-radius:8px;
+border-left:3px solid var(--gold);
+}
+
+.detail-item b{
+color:var(--gold);
+font-weight:500;
+display:block;
+margin-bottom:5px;
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+.detail-item span{
+color:var(--light-slate);
+font-size:15px;
+}
+
+.detail-item a{
+color:var(--light-slate);
+text-decoration:none;
+transition:.3s;
+}
+
+.detail-item a:hover{
+color:var(--gold);
+}
+
+.about-text{
+margin-top:25px;
+padding-top:25px;
+border-top:1px solid rgba(212,175,55,.2);
+color:var(--slate);
+font-size:16px;
+line-height:1.8;
+text-align:left;
+}
+
+.close{
+position:absolute;
+top:15px;
+right:25px;
+font-size:32px;
+cursor:pointer;
+color:var(--slate);
+transition:.3s;
+font-weight:300;
+}
+
+.close:hover{
+color:var(--gold);
+transform:rotate(90deg);
+}
+
+/* CRAZY GALLERY STYLES */
+.crazy-gallery{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+z-index:1002;
+overflow:hidden;
+}
+
+.gallery-controls{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:1003;
+display:flex;
+gap:15px;
+background:rgba(0,0,0,.7);
+padding:15px 25px;
+border-radius:50px;
+border:2px solid var(--gold);
+backdrop-filter:blur(10px);
+}
+
+.gallery-btn{
+padding:10px 20px;
+border:1px solid var(--gold);
+border-radius:30px;
+background:transparent;
+color:var(--gold);
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+font-family:'Orbitron',sans-serif;
+}
+
+.gallery-btn:hover,.gallery-btn.active{
+background:var(--gold);
+color:#000;
+box-shadow:0 0 20px var(--gold);
+}
+
+.gallery-close{
+position:fixed;
+top:20px;
+right:30px;
+font-size:45px;
+color:var(--gold);
+cursor:pointer;
+z-index:1003;
+transition:.3s;
+}
+
+.gallery-close:hover{
+transform:rotate(90deg) scale(1.2);
+color:#fff;
+}
+
+/* 3D Carousel View */
+.carousel-3d{
+width:100%;
+height:100%;
+display:none;
+justify-content:center;
+align-items:center;
+perspective:1000px;
+}
+
+.carousel-container{
+width:300px;
+height:300px;
+position:relative;
+transform-style:preserve-3d;
+animation:rotate 20s infinite linear;
+}
+
+@keyframes rotate{
+from{transform:rotateY(0deg);}
+to{transform:rotateY(360deg);}
+}
+
+.carousel-container.paused{
+animation-play-state:paused;
+}
+
+.carousel-item{
+position:absolute;
+width:250px;
+height:250px;
+left:25px;
+top:25px;
+border:3px solid var(--gold);
+border-radius:15px;
+overflow:hidden;
+cursor:pointer;
+transition:.5s;
+box-shadow:0 0 30px rgba(212,175,55,.5);
+}
+
+.carousel-item img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.carousel-item:hover{
+box-shadow:0 0 50px var(--neon-cyan);
+transform:scale(1.1);
+}
+
+/* Neon Grid View */
+.neon-grid{
+display:none;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+padding:100px 5%;
+height:100%;
+overflow-y:auto;
+}
+
+.neon-item{
+position:relative;
+height:300px;
+border-radius:15px;
+overflow:hidden;
+cursor:pointer;
+border:2px solid var(--neon-pink);
+box-shadow:0 0 20px var(--neon-pink), inset 0 0 20px var(--neon-pink);
+animation:neonPulse 2s infinite;
+transition:.3s;
+}
+
+@keyframes neonPulse{
+0%,100%{
+border-color:var(--neon-pink);
+box-shadow:0 0 20px var(--neon-pink), inset 0 0 20px var(--neon-pink);
+}
+33%{
+border-color:var(--neon-cyan);
+box-shadow:0 0 20px var(--neon-cyan), inset 0 0 20px var(--neon-cyan);
+}
+66%{
+border-color:var(--neon-purple);
+box-shadow:0 0 20px var(--neon-purple), inset 0 0 20px var(--neon-purple);
+}
+}
+
+.neon-item:hover{
+transform:scale(1.05) rotate(2deg);
+animation:none;
+}
+
+.neon-item img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:contrast(1.2);
+}
+
+/* Lightbox */
+.lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.98);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:1004;
+padding:40px 20px;
+}
+
+.lightbox-content{
+max-width:1200px;
+width:100%;
+text-align:center;
+position:relative;
+animation:zoomIn.4s ease;
+}
+
+@keyframes zoomIn{
+from{transform:scale(.8); opacity:0;}
+to{transform:scale(1); opacity:1;}
+}
+
+.lightbox-img{
+max-width:100%;
+max-height:70vh;
+border-radius:12px;
+border:3px solid var(--gold);
+box-shadow:0 0 50px var(--gold), 0 0 100px var(--neon-pink);
+}
+
+.lightbox-caption{
+margin-top:25px;
+background:var(--light-navy);
+padding:25px 30px;
+border-radius:12px;
+border:2px solid var(--gold);
+box-shadow:0 0 30px rgba(212,175,55,.3);
+}
+
+.lightbox-caption h3{
+color:var(--gold);
+font-size:24px;
+margin-bottom:10px;
+font-weight:700;
+font-family:'Orbitron',sans-serif;
+text-transform:uppercase;
+}
+
+.lightbox-caption p{
+color:var(--light-slate);
+font-size:16px;
+line-height:1.7;
+}
+
+.lightbox-meta{
+color:var(--neon-cyan);
+font-size:14px;
+margin-top:15px;
+display:flex;
+justify-content:center;
+gap:30px;
+font-family:'Orbitron',sans-serif;
+}
+
+.lightbox-nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:50px;
+color:var(--gold);
+cursor:pointer;
+padding:20px;
+transition:.3s;
+user-select:none;
+text-shadow:0 0 20px var(--gold);
+}
+
+.lightbox-nav:hover{
+color:var(--neon-cyan);
+transform:translateY(-50%) scale(1.3);
+text-shadow:0 0 30px var(--neon-cyan);
+}
+
+.lightbox-prev{left:20px;}
+.lightbox-next{right:20px;}
+
+.lightbox-close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:50px;
+color:var(--gold);
+cursor:pointer;
+transition:.3s;
+text-shadow:0 0 20px var(--gold);
+}
+
+.lightbox-close:hover{
+color:var(--neon-pink);
+transform:rotate(90deg) scale(1.2);
+text-shadow:0 0 30px var(--neon-pink);
+}
+
+footer{
+padding:60px 20px;
+text-align:center;
+background:var(--light-navy);
+border-top:1px solid rgba(212,175,55,.1);
+}
+
+footer h2{
+color:var(--light-slate);
+font-size:24px;
+font-weight:600;
+margin-bottom:15px;
+}
+
+footer p{
+color:var(--slate);
+max-width:600px;
+margin:0 auto;
+line-height:1.8;
+}
+
+.editable[contenteditable="true"]{
+outline:2px dashed var(--gold);
+border-radius:6px;
+padding:4px;
+}
+
+@media(max-width:768px){
+.hero h1{font-size:38px;}
+.hero p{font-size:18px;}
+.title{font-size:30px;}
+section{padding:70px 5%;}
+.school-logo{width:140px;height:140px;}
+.music-player{bottom:15px;right:15px;padding:10px 15px;}
+.music-info{display:none;}
+.lightbox-nav{font-size:35px; padding:10px;}
+.lightbox-prev{left:5px;}
+.lightbox-next{right:5px;}
+.gallery-controls{flex-direction:column; gap:10px; top:10px;}
+.carousel-container{width:250px;height:250px;}
+.carousel-item{width:200px;height:200px;}
+}
+</style>
+</head>
+
+<body>
+<button class="edit-btn" onclick="toggleEdit()">Edit Mode</button>
+
+<!-- Music Player -->
+<div class="music-player">
+<button class="music-btn" id="playBtn" onclick="toggleMusic()">⏸</button>
+<div class="music-info">Now Playing: <span id="songName">69</span></div>
+<input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+<audio id="bgMusic" autoplay loop>
+<source src="69.webm" type="audio/webm">
+Your browser does not support the audio element.
+</audio>
+</div>
+
+<div class="logo-box">
+    <img src="tss.png" class="school-logo" alt="School Logo">
+</div>
+
+<header>
+<div class="hero">
+<h1 class="editable">Class XI & XII <span>Legacy</span></h1>
+<p class="editable">
+Two years that shaped our foundation. Where we learned more than textbooks —
+we learned collaboration, resilience, and the value of lifelong friendships.
+These halls witnessed our growth, our laughter, and our dreams.
+</p>
+<button onclick="document.getElementById('friends').scrollIntoView()">
+Meet The Cohort
+</button>
+</div>
+</header>
+
+<section>
+<h1 class="title editable">Our Journey</h1>
+<div class="friendship editable">
+Friendship forged in classrooms extends beyond graduation. Together we navigated
+challenges, celebrated achievements, and created a support system that continues today.
+These connections are not bound by time or distance — they are the foundation of who we are.
+</div>
+</section>
+
+<section id="friends">
+<h1 class="title editable">The Cohort</h1>
+<div class="profiles">
+
+<div class="card">
+<img src="3.jpg" alt="Mayur">
+<h2 class="editable">Mayur Jyoti Sarmah</h2>
+<p class="editable">Consistently positive, driven, and a natural leader who elevated everyone around him.</p>
+<button class="view-btn" onclick="openCard('mayur')">View Profile</button>
+</div>
+
+<div class="card">
+<img src="2.jpg" alt="Geerban">
+<h2 class="editable">Geerban Borah</h2>
+<p class="editable">Analytical, dependable, and always willing to help others succeed academically.</p>
+<button class="view-btn" onclick="openCard('geerban')">View Profile</button>
+</div>
+
+<div class="card">
+<img src="chira.jpg" alt="Chiranjib">
+<h2 class="editable">Chiranjib Saharia</h2>
+<p class="editable">Brought energy and humor to every situation while maintaining strong academic focus.</p>
+<button class="view-btn" onclick="openCard('chiranjib')">View Profile</button>
+</div>
+
+<div class="card">
+<img src="1.jpg" alt="Nabashree">
+<h2 class="editable">Nabashree Saharia</h2>
+<p class="editable">Diligent, empathetic, and the organizational backbone of our group projects.</p>
+<button class="view-btn" onclick="openCard('nabashree')">View Profile</button>
+</div>
+
+</div>
+</section>
+
+<section id="gallery-section">
+<h1 class="title editable">Memory Archive</h1>
+<div class="friendship" style="text-align:center;">
+<h2 class="editable" style="color:var(--light-slate); margin-bottom:20px;">Documented Moments</h2>
+<p class="editable" style="margin-bottom:30px;">
+A curated collection from our two-year journey — academic milestones,
+cultural events, field trips, and candid moments that define our batch.
+</p>
+<button class="hero button" onclick="openCrazyGallery()" style="background:transparent;border:2px solid var(--neon-pink);color:var(--neon-pink);box-shadow:0 0 20px var(--neon-pink);">
+<p style="font-size:18px;margin:0;font-weight:700;font-family:'Orbitron',sans-serif;">ENTER THE CHAOS</p>
+</button>
+</div>
+</section>
+
+<!-- CRAZY GALLERY -->
+<div class="crazy-gallery" id="crazyGallery">
+<span class="gallery-close" onclick="closeCrazyGallery()">&times;</span>
+<div class="gallery-controls">
+<button class="gallery-btn active" onclick="switchGalleryMode('carousel')">3D CAROUSEL</button>
+<button class="gallery-btn" onclick="switchGalleryMode('neon')">NEON GRID</button>
+</div>
+
+<!-- 3D Carousel -->
+<div class="carousel-3d" id="carousel3d">
+<div class="carousel-container" id="carouselContainer"></div>
+</div>
+
+<!-- Neon Grid -->
+<div class="neon-grid" id="neonGrid"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+<span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+<span class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">‹</span>
+<div class="lightbox-content">
+<img class="lightbox-img" id="lightboxImg" src="">
+<div class="lightbox-caption">
+<h3 id="lightboxTitle"></h3>
+<p id="lightboxDesc"></p>
+<div class="lightbox-meta">
+<span id="lightboxDate"></span>
+<span id="lightboxVibe"></span>
+</div>
+</div>
+</div>
+<span class="lightbox-nav lightbox-next" onclick="changePhoto(1)">›</span>
+</div>
+
+<div class="modal" id="popup">
+<div class="modal-content">
+<span class="close" onclick="closeCard()">&times;</span>
+<img id="photo" src="">
+<h2 id="name"></h2>
+<div class="detail-grid">
+<div class="detail-item"><b>Known As</b><span id="nickname"></span></div>
+<div class="detail-item"><b>Defining Moment</b><span id="moment"></span></div>
+<div class="detail-item"><b>Current Pursuit</b><span id="song"></span></div>
+<div class="detail-item"><b>Connect</b><a id="insta" href="#" target="_blank">@username</a></div>
+</div>
+<div class="about-text" id="about"></div>
+</div>
+</div>
+
+<section>
+<h1 class="title editable">Looking Forward</h1>
+<div class="friendship editable" style="text-align:center;">
+<p style="font-size:18px;line-height:2;">
+As we step into different paths, we carry forward the lessons,
+values, and friendships from Class XI & XII.<br><br>
+This chapter concludes, but the network we've built remains —
+a foundation for future collaboration, support, and success.<br><br>
+Once classmates, always connected.
+</p>
+</div>
+</section>
+
+<footer>
+<h2 class="editable">Class XI & XII Legacy</h2>
+<p class="editable">"Education is the passport to the future, but friendship is the journey."</p>
+<p style="color:var(--gold);margin-top:20px;" class="editable">Excellence • Integrity • Friendship</p>
+</footer>
+
+<script>
+const friends={
+mayur:{
+name:"Mayur Jyoti Sarmah",
+img:"3.jpg",
+nickname:"MJ",
+moment:"Led the inter-school debate team to finals while maintaining academic excellence",
+song:"Pursuing B.Tech Computer Science",
+insta:"https://instagram.com/mayur_js",
+about:"A strategic thinker with exceptional leadership qualities. Mayur balanced academics with extracurriculars effortlessly, always motivating peers to achieve their best. His ability to remain composed under pressure made him the go-to person during examinations."
+},
+geerban:{
+name:"Geerban Borah",
+img:"2.jpg",
+nickname:"GB",
+moment:"Secured district rank in Science Olympiad and tutored classmates voluntarily",
+song:"Preparing for NEET",
+insta:"https://instagram.com/geerban_b",
+about:"Known for his analytical approach and methodical study habits. Geerban's willingness to explain complex concepts helped elevate the entire batch's performance. His discipline and consistency were exemplary."
+},
+chiranjib:{
+name:"Chiranjib Saharia",
+img:"chira.jpg",
+nickname:"Chira",
+moment:"Organized the annual cultural fest that became a benchmark for junior batches",
+song:"Pursuing BBA",
+insta:"https://instagram.com/chira_s",
+about:"Master of balancing academics with creativity. Chiranjib's organizational skills and people management were evident in every event he led. He proved that discipline and enjoyment aren't mutually exclusive."
+},
+nabashree:{
+name:"Nabashree Saharia",
+img:"1.jpg",
+nickname:"Naba",
+moment:"Coordinated the farewell committee and maintained 95% attendance throughout",
+song:"Pursuing BA English Honours",
+insta:"https://instagram.com/naba_s",
+about:"The embodiment of reliability and empathy. Nabashree ensured no one felt left behind, whether in group projects or personal challenges. Her attention to detail and commitment were unmatched."
+}
+};
+
+// Gallery Photos - REMOVED memory11.jpg and memory12.jpg
+const galleryPhotos=[
+{
+src:"4.jpg",
+title:"FIRST DAY CHAOS",
+desc:"Everyone pretending to be cool but secretly terrified. New books smell, new benches, new drama incoming.",
+date:"JUNE 2023",
+vibe:"⚡ ELECTRIC",
+bgColor:"linear-gradient(135deg, #ff0080, #7928ca)"
+},
+{
+src:"5.jpg",
+title:"SCIENCE FAIR MELTDOWN",
+desc:"Project caught fire. Literally. We won anyway because judges thought it was 'interactive demonstration'.",
+date:"OCT 2023",
+vibe:"🔥 LEGENDARY",
+bgColor:"linear-gradient(135deg, #ff8c00, #ff0080)"
+},
+{
+src:"6.jpg",
+title:"CANTEEN TAKEOVER",
+desc:"We claimed Table 4 as our territory. No outsiders allowed. Samosa diplomacy at its finest.",
+date:"DEC 2023",
+vibe:"👑 DOMINANCE",
+bgColor:"linear-gradient(135deg, #00ffff, #7928ca)"
+},
+{
+src:"7.jpg",
+title:"FAREWELL REHEARSAL DISASTER",
+desc:"Choreography: 0. Enthusiasm: 1000. We practiced for 2 weeks and still looked like drunk penguins.",
+date:"FEB 2024",
+vibe:"💃 UNHINGED",
+bgColor:"linear-gradient(135deg, #ff0080, #00ffff)"
+},
+{
+src:"8.jpg",
+title:"THE LAST PHOTO",
+desc:"Red eyes, fake smiles, real tears. We promised to stay in touch. Group chat is still active at 2AM.",
+date:"MAR 2024",
+vibe:"💔 RAW",
+bgColor:"linear-gradient(135deg, #1e3a8a, #7928ca)"
+}
+];
+
+let currentPhotoIndex = 0;
+let currentGalleryMode = 'carousel';
+
+// Music Controls with Autoplay
+const music = document.getElementById('bgMusic');
+const playBtn = document.getElementById('playBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+let isPlaying = true; // Start as true for autoplay
+
+music.volume = 0.5;
+
+// Try autoplay immediately
+window.addEventListener('load', () => {
+music.play().then(() => {
+playBtn.innerHTML = '⏸';
+isPlaying = true;
+}).catch(e => {
+console.log('Autoplay blocked, waiting for user interaction');
+playBtn.innerHTML = '▶';
+isPlaying = false;
+// Fallback: play on first click anywhere
+document.body.addEventListener('click', () => {
+if(!isPlaying){
+music.play();
+playBtn.innerHTML = '⏸';
+isPlaying = true;
+}
+}, {once: true});
+});
+});
+
+function toggleMusic(){
+if(isPlaying){
+music.pause();
+playBtn.innerHTML = '▶';
+}else{
+music.play();
+playBtn.innerHTML = '⏸';
+}
+isPlaying =!isPlaying;
+}
+
+volumeSlider.addEventListener('input', function(){
+music.volume = this.value;
+});
+
+function openCard(person){
+document.getElementById("popup").style.display="flex";
+document.getElementById("photo").src=friends[person].img;
+document.getElementById("name").innerHTML=friends[person].name;
+document.getElementById("nickname").innerHTML=friends[person].nickname;
+document.getElementById("moment").innerHTML=friends[person].moment;
+document.getElementById("song").innerHTML=friends[person].song;
+document.getElementById("insta").href=friends[person].insta;
+document.getElementById("insta").innerHTML=friends[person].insta.replace('https://instagram.com/','@');
+document.getElementById("about").innerHTML=friends[person].about;
+}
+
+function closeCard(){
+document.getElementById("popup").style.display="none";
+}
+
+// Crazy Gallery Functions
+function openCrazyGallery(){
+document.getElementById("crazyGallery").style.display="block";
+document.body.style.overflow="hidden";
+initCarousel();
+initNeonGrid();
+switchGalleryMode('carousel');
+}
+
+function closeCrazyGallery(){
+document.getElementById("crazyGallery").style.display="none";
+document.body.style.overflow="auto";
+document.body.style.background = 'var(--navy)';
+}
+
+function switchGalleryMode(mode){
+currentGalleryMode = mode;
+document.querySelectorAll('.gallery-btn').forEach(btn => btn.classList.remove('active'));
+event.target.classList.add('active');
+
+document.getElementById('carousel3d').style.display = mode === 'carousel'? 'flex' : 'none';
+document.getElementById('neonGrid').style.display = mode === 'neon'? 'grid' : 'none';
+}
+
+function initCarousel(){
+const container = document.getElementById('carouselContainer');
+container.innerHTML = '';
+const angleStep = 360 / galleryPhotos.length;
+
+galleryPhotos.forEach((photo, index) => {
+const item = document.createElement('div');
+item.className = 'carousel-item';
+item.style.transform = `rotateY(${angleStep * index}deg) translateZ(400px)`;
+item.innerHTML = `<img src="${photo.src}" alt="${photo.title}">`;
+item.onclick = () => openLightbox(index);
+container.appendChild(item);
+});
+
+// Drag to rotate
+let isDragging = false;
+let startX = 0;
+let currentRotation = 0;
+
+container.addEventListener('mousedown', (e) => {
+isDragging = true;
+startX = e.clientX;
+container.classList.add('paused');
+});
+
+document.addEventListener('mousemove', (e) => {
+if(isDragging){
+const deltaX = e.clientX - startX;
+currentRotation += deltaX * 0.5;
+container.style.transform = `rotateY(${currentRotation}deg)`;
+startX = e.clientX;
+}
+});
+
+document.addEventListener('mouseup', () => {
+isDragging = false;
+container.classList.remove('paused');
+});
+}
+
+function initNeonGrid(){
+const grid = document.getElementById('neonGrid');
+grid.innerHTML = '';
+
+galleryPhotos.forEach((photo, index) => {
+const item = document.createElement('div');
+item.className = 'neon-item';
+item.innerHTML = `<img src="${photo.src}" alt="${photo.title}">`;
+item.onclick = () => openLightbox(index);
+grid.appendChild(item);
+});
+}
+
+// Lightbox Functions
+function openLightbox(index){
+currentPhotoIndex = index;
+document.getElementById("lightbox").style.display="flex";
+updateLightbox();
+}
+
+function closeLightbox(){
+document.getElementById("lightbox").style.display="none";
+document.body.style.background = '#000';
+}
+
+function changePhoto(direction){
+currentPhotoIndex += direction;
+if(currentPhotoIndex < 0) currentPhotoIndex = galleryPhotos.length - 1;
+if(currentPhotoIndex >= galleryPhotos.length) currentPhotoIndex = 0;
+updateLightbox();
+}
+
+function updateLightbox(){
+const photo = galleryPhotos[currentPhotoIndex];
+document.getElementById("lightboxImg").src = photo.src;
+document.getElementById("lightboxTitle").innerHTML = photo.title;
+document.getElementById("lightboxDesc").innerHTML = photo.desc;
+document.getElementById("lightboxDate").innerHTML = "📅 " + photo.date;
+document.getElementById("lightboxVibe").innerHTML = photo.vibe;
+document.body.style.background = photo.bgColor;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e){
+if(document.getElementById("lightbox").style.display === "flex"){
+if(e.key === "ArrowLeft") changePhoto(-1);
+if(e.key === "ArrowRight") changePhoto(1);
+if(e.key === "Escape") closeLightbox();
+}
+if(document.getElementById("crazyGallery").style.display === "block" && e.key === "Escape"){
+closeCrazyGallery();
+}
+});
+
+let editMode = false;
+function toggleEdit(){
+editMode =!editMode;
+document.querySelectorAll('.editable').forEach(el => {
+el.contentEditable = editMode;
+});
+document.querySelector('.edit-btn').innerHTML = editMode? 'Save Changes' : 'Edit Mode';
+}
+
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{threshold:0.15});
+
+document.querySelectorAll(".card").forEach(card=>{
+observer.observe(card);
+});
+
+window.onclick=function(e){
+if(e.target==document.getElementById("popup")) closeCard();
+if(e.target==document.getElementById("lightbox")) closeLightbox();
+}
+</script>
+</body>
+</html>
